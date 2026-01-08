@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const components: { title: string; href: string; description?: string }[] = [
   {
@@ -30,6 +30,29 @@ const components: { title: string; href: string; description?: string }[] = [
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      if (currentScrollY < lastScrollY) {
+        setIsVisible(true)
+      } else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false)
+        setIsMenuOpen(false) 
+      }
+
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [lastScrollY])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -40,7 +63,11 @@ export function Navbar() {
   }
 
   return (
-    <header className="bg-[#23232D] w-full h-16 flex items-center justify-between px-4 md:px-8 lg:justify-around relative">
+    <header
+      className={`bg-[#23232D] w-full h-16 flex items-center justify-between px-4 md:px-8 lg:justify-around fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       {/* Logo */}
       <Link
         href="/"
@@ -97,16 +124,24 @@ export function Navbar() {
       >
         <div className="flex flex-col h-full">
           {/* Mobile Navigation Links */}
-         <ul className=' py-4 flex flex-col items-center gap-4'>
-            {
-                components.map((category) => (
-                    <Link href={category.href} key={category.title} className='text-lg text-white font-semibold hover:text-[#DDF203] transition-all'>{category.title}</Link>
-                ))
-            }
-         </ul>
+          <ul className="py-4 flex flex-col items-center gap-4">
+            {components.map((category) => (
+              <Link
+                href={category.href}
+                key={category.title}
+                className="text-lg text-white font-semibold hover:text-[#DDF203] transition-all"
+                onClick={closeMenu}
+              >
+                {category.title}
+              </Link>
+            ))}
+          </ul>
 
           {/* Mobile User Section */}
-          <Link href="/" className="mt-auto p-6 border-t border-gray-700 hover:opacity-90 transition-all cursor-pointer">
+          <Link
+            href="/"
+            className="mt-auto p-6 border-t border-gray-700 hover:opacity-90 transition-all cursor-pointer"
+          >
             <div className="flex items-center justify-end gap-3">
               <span className="text-white font-semibold">Profile</span>
               <Avatar>

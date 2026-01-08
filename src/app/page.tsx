@@ -7,7 +7,7 @@ const Page = async () => {
 
   
   return (
-    <div className="p-8">
+    <div className="p-8 h-[200vh] bg-red-300">
       <h1 className="text-2xl font-bold mb-4">Articles</h1>
 
       <div className="space-y-4 mb-6">
