@@ -71,7 +71,7 @@ export function Navbar() {
       {/* Logo */}
       <Link
         href="/"
-        className="w-auto h-8 bg-[#67206E] text-[#DDF203] px-6 md:px-10 text-[1.2rem] flex items-center justify-center font-bold tracking-widest hover:bg-[#DDF203] hover:text-[#67206E] cursor-pointer transition-all z-20"
+        className="w-auto h-8 bg-[#67206E] text-[#DDF203] px-4  md:px-6 text-[1.2rem] flex items-center justify-center font-bold tracking-widest hover:bg-[#DDF203] hover:text-[#67206E] cursor-pointer transition-all z-20 rounded-sm"
       >
         BLITZ
       </Link>

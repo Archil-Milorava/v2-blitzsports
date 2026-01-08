@@ -1,8 +1,10 @@
 import { prisma } from '@/lib/bd'
 
-export const getArticles = async () => {
+export const getNews = async () => {
   try {
-    const articles = await prisma.article.findMany()
+    const articles = await prisma.article.findMany({
+      where: { badge: 'NEWS' },
+    })
 
     return articles
   } catch (error) {
@@ -12,11 +14,13 @@ export const getArticles = async () => {
   }
 }
 
-
-
-export const makeArticle = async () => {
+export const getStories = async () => {
   try {
+    const articles = await prisma.article.findMany({
+      where: { badge: 'HISTORY' },
+    })
 
+    return articles
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message)
