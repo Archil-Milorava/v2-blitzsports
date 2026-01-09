@@ -1,0 +1,46 @@
+[
+  {
+    "id": "86b8bc17-c337-4bc5-89aa-0e4630065e56",
+    "fullName": "achi milorava",
+    "nickName": "Blitz Sport Official",
+    "email": "achimilorava16@gmail.com",
+    "googleId": "112242098330606261680",
+    "avatar": "https://res.cloudinary.com/deijidv94/image/upload/v1765297614/Group_11_waupnd.png",
+    "role": "ADMIN",
+    "createdAt": "2025-08-09T17:40:20.163Z",
+    "updatedAt": "2026-01-07T12:32:02.238Z"
+  },
+  {
+    "id": "192e6961-ece3-4112-97fb-779ab4d0e35b",
+    "fullName": "Lasha Tchezhia",
+    "nickName": "ლაშა ჭეჟია",
+    "email": "lashatchezhia98@gmail.com",
+    "googleId": "100281328009947178996",
+    "avatar": "https://i.postimg.cc/Pf6BmKj5/1000003957.jpg",
+    "role": "AUTHOR",
+    "createdAt": "2025-08-09T19:11:33.173Z",
+    "updatedAt": "2025-10-11T13:38:14.383Z"
+  },
+  {
+    "id": "66825bb3-bc3b-4058-aa9a-0fb91fa9a272",
+    "fullName": "Achi Gabelia",
+    "nickName": "არჩილ გაბელია",
+    "email": "gabelia1997@gmail.com",
+    "googleId": "117627905052297685210",
+    "avatar": "https://i.postimg.cc/vHcCX9YL/1000003955.jpg",
+    "role": "USER",
+    "createdAt": "2025-08-09T20:18:54.728Z",
+    "updatedAt": "2025-10-01T12:14:25.364Z"
+  },
+  {
+    "id": "e841b50f-36eb-4231-ba57-bce3e7ed6ada",
+    "fullName": "Dimitri keburia",
+    "nickName": "დიმა ქებურია",
+    "email": "dimitrikeburia1@gmail.com",
+    "googleId": "100081043382633068995",
+    "avatar": "https://i.postimg.cc/HWR0rd03/95bc6f65-205f-4eed-b74d-95cf35542e83.jpg",
+    "role": "USER",
+    "createdAt": "2025-09-06T10:03:47.682Z",
+    "updatedAt": "2025-09-21T10:09:12.570Z"
+  }
+]
