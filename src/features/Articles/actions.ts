@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/bd'
+import { prisma } from '@/lib/db'
 
 export const getNews = async () => {
   try {
