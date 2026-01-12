@@ -4,11 +4,15 @@ import { revalidatePath } from 'next/cache'
 
 export const getNews = async () => {
   try {
-    const articles = await prisma.article.findMany({
+    const newsLanding = await prisma.article.findMany({
       where: { badge: 'NEWS' },
+      orderBy: {createdAt: "desc"},
+      take: 6
     })
 
-    return articles
+    if (!newsLanding || newsLanding.length === 0) throw new Error("statia ver moidzebna")
+
+    return newsLanding
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message)
@@ -18,11 +22,16 @@ export const getNews = async () => {
 
 export const getStories = async () => {
   try {
-    const articles = await prisma.article.findMany({
+
+    const storiesLanding = await prisma.article.findMany({
       where: { badge: 'HISTORY' },
+      orderBy: {createdAt: "desc"},
+      take: 3
     })
 
-    return articles
+    if (!storiesLanding) throw new Error()
+
+    return storiesLanding
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message)
@@ -47,11 +56,11 @@ export const createArticles = async (formData: FormData) => {
         category,
         badge,
         authorId,
-        imageUrl: "https://via.placeholder.com/150", // Placeholder since we're ignoring upload
+        imageUrl: "https://via.placeholder.com/150", 
       },
     })
 
-    // This refreshes the page data immediately
+    
     revalidatePath('/') 
   } catch (error) {
     if (error instanceof Error) {

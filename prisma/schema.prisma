@@ -40,6 +40,7 @@ model Article {
   user    User        @relation(fields: [authorId], references: [id])
   authorId  String
 
+  @@index([createdAt])
 }
 
 
