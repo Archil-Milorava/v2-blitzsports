@@ -10,8 +10,8 @@ export const getNews = unstable_cache(
       take: 6,
     })
   },
-  ['landing-news'], 
-  { revalidate: 600 } 
+  ['landing-news'],
+  { revalidate: 600 }
 )
 
 export const getStories = unstable_cache(
@@ -23,8 +23,27 @@ export const getStories = unstable_cache(
     })
   },
   ['landing-stories'],
-  { revalidate: 60 }
+  { revalidate: 3600 }
 )
+
+export const getArticlesByTitle = async (titleInput: string | null) => {
+  if (!titleInput) return null
+
+  const articlesByTitle = await prisma.article.findMany({
+    where: {
+      title: {
+        contains: titleInput,
+        mode: 'insensitive',
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: 5,
+  })
+
+  return articlesByTitle
+}
 
 export const createArticles = async (formData: FormData) => {
   try {

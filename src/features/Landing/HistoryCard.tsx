@@ -1,4 +1,5 @@
 import getPlainTextExcerpt from '@/lib/getPlainTextExcerpt'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Article } from '../../../generated/prisma/browser'
 
@@ -21,40 +22,41 @@ const HistoryCard = ({ news_card }: HistoryCardProps) => {
   return (
     <Link
       href={`/article/${id}`}
-      className="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col md:flex-row h-auto md:h-52 group cursor-pointer relative border border-gray-200"
+      className="group relative flex h-auto cursor-pointer flex-col overflow-hidden rounded-sm border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md md:h-52 md:flex-row"
     >
       {/* Right-side accent border on hover */}
-      <div className="absolute right-0 top-0 h-full w-0 bg-[#67206E] transition-all duration-300 group-hover:w-1.5" />
+      <div className="absolute top-0 right-0 h-full w-0 bg-[#67206E] transition-all duration-300 group-hover:w-1.5" />
 
       {/* Image Section - Takes 1/3 of the width on desktop */}
-      <div className="relative w-full md:w-1/3 h-48 md:h-full overflow-hidden">
-        <img
+      <div className="relative h-48 w-full overflow-hidden md:h-full md:w-1/3">
+        <Image
           src={imageUrl || 'https://via.placeholder.com/800x450?text=History'}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          fill
           loading="lazy"
         />
-        <span className="absolute top-2 left-2 bg-[#DDF203] text-black text-[10px] px-2 py-1 rounded font-bold uppercase z-10">
+        <span className="absolute top-2 left-2 z-10 rounded bg-[#DDF203] px-2 py-1 text-[10px] font-bold text-black uppercase">
           {category || 'ისტორია'}
         </span>
       </div>
 
       {/* Content Section - Takes 2/3 of the width on desktop */}
-      <div className="flex flex-col p-5 md:px-8 md:py-4 w-full md:w-2/3 justify-between">
+      <div className="flex w-full flex-col justify-between p-5 md:w-2/3 md:px-8 md:py-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-[#67206E] transition-colors duration-200">
+          <h2 className="mb-2 line-clamp-1 text-xl font-bold text-gray-900 transition-colors duration-200 group-hover:text-[#67206E]">
             {title}
           </h2>
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2 md:line-clamp-3">
+          <p className="mb-4 line-clamp-2 text-sm text-gray-600 md:line-clamp-3">
             {getPlainTextExcerpt(content, 180)}
           </p>
         </div>
 
         <div className="flex items-center justify-between border-t border-gray-100 pt-3">
-          <div className="text-xs text-gray-400 font-medium">
+          <div className="text-xs font-medium text-gray-400">
             {formattedDate}
           </div>
-          <span className="text-[#67206E] font-bold text-sm group-hover:translate-x-1 transition-transform duration-300">
+          <span className="text-sm font-bold text-[#67206E] transition-transform duration-300 group-hover:translate-x-1">
             კითხვის გაგრძელება →
           </span>
         </div>

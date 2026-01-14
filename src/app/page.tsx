@@ -6,12 +6,13 @@ import NewsCard from '@/features/Landing/NewsCard'
 import StoriesSkeleton from '@/features/Landing/StoriesSkeleton'
 import NewsSekelton from '@/features/Landing/NewsSekelton'
 import LandingNotFound from '@/features/Landing/LandingNotFound'
+import { Navbar } from '@/features/Navbar/Navbar'
 
 const NewsList = async () => {
   const news = await getNews()
   return (
     <div className="my-4 grid w-full grid-cols-1 gap-8 px-2 sm:grid-cols-2 lg:grid-cols-3">
-      {news?.length ? (
+      {news.length ? (
         news.map((card) => <NewsCard news_card={card} key={card.id} />)
       ) : (
         <div className="col-span-full">
@@ -40,8 +41,9 @@ const StoriesList = async () => {
 const Page = () => {
   return (
     <div className="min-h-screen w-full bg-[#D9D9D9]">
+      <Navbar />
       {/* News Section */}
-      <div className="pt-10 lg:px-48">
+      <div className="pt-20 lg:px-48">
         <SectionDevider redirectLink="news" redirectText="ახალი ამბები" />
         <Suspense fallback={<NewsSekelton />}>
           <NewsList />
