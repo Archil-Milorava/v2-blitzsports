@@ -1,18 +1,52 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, pgEnum } from "drizzle-orm/pg-core";
+
+export const roleEnum = pgEnum("role_enum", ["admin", "writer", "user"]);
+export const badgeEnum = pgEnum("badge_enum", ["news", "history"]);
+
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
+  authorName: text("authorName"),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
+  role: roleEnum("role").default("user").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
     .$onUpdate(() =>  new Date())
     .notNull(),
 });
+
+
+
+export const article = pgTable("article", {
+  id: text("id").primaryKey(),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  coverImage: text("cover_image").notNull(),
+  badge: badgeEnum("badge").default("news"),
+  category: text("category"),
+  authorId: text("author_id").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() =>  new Date())
+    .notNull(),
+})
+
+
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+  articles: many(article),
+}));
+
+export const articleRelations = relations(article, ({ one }) => ({
+  author: one(user),
+}));
 
 export const session = pgTable(
   "session",
@@ -72,11 +106,6 @@ export const verification = pgTable(
   },
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
-
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
-}));
 
 export const sessionRelations = relations(session, ({ one }) => ({
   user: one(user, {
