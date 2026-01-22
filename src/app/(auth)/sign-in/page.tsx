@@ -41,7 +41,7 @@ const Page = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
-        toast('დაფიქსირდა შეცდომა');
+        toast.error('დაფიქსირდა შეცდომა');
       }
     }
   };
@@ -75,7 +75,7 @@ const Page = () => {
       <Separator className="border-gray-200" />
 
       {/* Footer section */}
-      <div className="flex h-1/5 w-full flex-col items-center justify-center gap-1.5 bg-[#fdfdfd] text-gray-600">
+      <div className="flex h-1/5 w-full flex-col items-center justify-center gap-1.5 bg-[#f3f3f3] text-gray-600">
         <h4 className="text-md">გაეცანი სპორტულ სიახლეებს და ისტორიებს</h4>
         <h2 className="text-3xl font-extrabold tracking-widest text-gray-800">
           BLITZ
