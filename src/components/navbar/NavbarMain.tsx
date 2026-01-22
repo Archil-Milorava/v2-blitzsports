@@ -32,12 +32,7 @@ const NavbarMain = () => {
   const { data: session, isPending } = authClient.useSession();
 
   return (
-    <div
-      className={clsx(
-        'h-14 w-full bg-green-300 transition-all duration-300',
-        'lg:bg-green-700'
-      )}
-    >
+    <div className={clsx('h-14 w-full transition-all duration-300 bg-secondary-foreground')}>
       <div className="hidden h-full w-full lg:block">
         <NavbarDesktop
           navbarItems={navbarItems}
