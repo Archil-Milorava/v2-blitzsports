@@ -19,3 +19,21 @@ export const getLandingNews = async () => {
     }
   }
 };
+
+export const getLandingHistories = async () => {
+  try {
+    const histories = await db.query.article.findMany({
+      where: and(eq(article.softDelete, false), eq(article.badge, 'history')),
+      orderBy: [desc(article.createdAt)],
+      limit: 3,
+    });
+
+    if (!histories) throw new Error('No News found');
+
+    return histories;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
+};
