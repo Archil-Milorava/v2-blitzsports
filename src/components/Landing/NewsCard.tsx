@@ -24,7 +24,7 @@ const NewsCard = ({ newsItem, variant = 'default' }: NewsCardProp) => {
     >
       {/* Category Badge */}
       {newsItem.category && (
-        <Badge className="absolute bg-accent text-black/80 top-3 left-3 z-20">
+        <Badge className="bg-accent absolute top-3 left-3 z-20 text-black/80">
           {newsItem.category}
         </Badge>
       )}
@@ -37,7 +37,7 @@ const NewsCard = ({ newsItem, variant = 'default' }: NewsCardProp) => {
           alt={newsItem.title}
           src={newsItem.coverImage || '/images/placeholder.jpg'}
           fill
-          priority={isHero} // Hero image should load faster
+          priority={isHero}
           sizes={isHero ? '100vw' : '(max-width: 768px) 100vw, 33vw'}
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
@@ -49,7 +49,7 @@ const NewsCard = ({ newsItem, variant = 'default' }: NewsCardProp) => {
       {/* Text Overlay */}
       <div className="absolute bottom-0 z-20 flex w-full flex-col gap-1 p-4 text-white md:p-6">
         <div className="flex items-center gap-2">
-          <span className="h-1 w-6 bg-accent" />
+          <span className="bg-accent h-1 w-6" />
           <small className="text-[10px] tracking-widest uppercase opacity-70">
             {formattedDate}
           </small>
