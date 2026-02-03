@@ -2,6 +2,7 @@ import F1Banner from '@/components/Landing/F1Banner';
 import HistoryPack from '@/components/Landing/HistoryPack';
 import MmaBanner from '@/components/Landing/MmaBanner';
 import NewsPack from '@/components/Landing/NewsPack';
+import { QaSection } from '@/components/Landing/Qasection';
 import HistoryPackSkeleton from '@/components/Skeletons/HistoryPackSkeleton';
 import NewsPackSkeleton from '@/components/Skeletons/NewsPackSkeleton';
 import PackDivider from '@/components/ui/PackDivider';
@@ -24,6 +25,7 @@ const page = () => {
       </div>
       <MmaBanner />
       <F1Banner />
+      <QaSection />
     </div>
   );
 };
