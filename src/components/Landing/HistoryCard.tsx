@@ -2,6 +2,7 @@ import { article } from '@/drizzle/schema';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
+import OptimizedImage from '../ui/OptimizedImage';
 
 interface NewsCardProps {
   history: typeof article.$inferSelect;
@@ -30,12 +31,7 @@ const HistoryCard = ({ history }: NewsCardProps) => {
 
       {/* Image Section */}
       <div className="relative h-56 w-full overflow-hidden transition-transform duration-300 group-hover:scale-[1.02] md:h-full md:w-2/5">
-        <Image
-          alt={history.title}
-          src={history.coverImage || '/images/placeholder.jpg'}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
+        <OptimizedImage alt={history.title} src={history.coverImage} />
         {history.category && (
           <Badge className="bg-accent absolute top-3 left-3 z-20 text-black/80">
             {history.category}

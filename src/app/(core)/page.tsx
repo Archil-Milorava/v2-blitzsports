@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 
 const page = () => {
   return (
-    <div className="flex h-full w-full max-w-400 flex-col px-4 sm:px-10 md:px-14 lg:px-32 xl:px-44">
+    <div className="flex h-full w-full max-w-400 flex-col px-4 sm:px-10 md:px-14 lg:px-32 xl:px-48">
       <div className="bg-red- my-6">
         <PackDivider title="ახალი ამბები" to="/news" />
         <Suspense fallback={<NewsPackSkeleton />}>
