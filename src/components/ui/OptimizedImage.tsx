@@ -40,7 +40,7 @@ const OptimizedImage = ({
         onLoad={() => setImageLoaded(true)}
         placeholder={placeholderSrc ? 'blur' : undefined}
         blurDataURL={placeholderSrc}
-        className={`object-cover transition-opacity duration-700 ${
+        className={`object-cover transition-opacity duration-500 ${
           imageLoaded ? 'opacity-100' : 'opacity-0'
         } ${className}`}
         {...rest}
