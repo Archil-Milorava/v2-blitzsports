@@ -6,15 +6,19 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { CalendarDays, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import { CiLogout } from 'react-icons/ci';
-import { CalendarDays, FileText, PlusCircle } from 'lucide-react';
-import { getCurrentUserData } from './actions';
+import {
+  getArticlesByUserId,
+  getCurrentUserData,
+  handleSignOut,
+} from './actions';
+import { ArticleTable } from './components/ArticleTable';
 
 const ProfilePage = async () => {
   const user = await getCurrentUserData();
-
-  console.log(user);
+  const articles = await getArticlesByUserId();
 
   return (
     <div className="bg-background flex min-h-screen w-full flex-col gap-8 px-4 py-10 sm:px-10 md:px-14 lg:px-32 xl:px-48">
@@ -41,10 +45,6 @@ const ProfilePage = async () => {
 
             <div className="text-muted-foreground flex flex-wrap justify-center gap-4 text-sm sm:justify-start">
               <div className="flex items-center gap-1">
-                <FileText className="h-4 w-4" />
-                <span>{user?.articles.length} Articles</span>
-              </div>
-              <div className="flex items-center gap-1">
                 <CalendarDays className="h-4 w-4" />
                 <span>
                   Member since{' '}
@@ -61,13 +61,16 @@ const ProfilePage = async () => {
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="hover:bg-destructive/10 hover:text-destructive rounded-full transition-colors"
-            >
-              <CiLogout className="text-xl" />
-            </Button>
+            <form action={handleSignOut}>
+              <Button
+                variant="outline"
+                size="icon"
+                className="hover:bg-destructive/10 hover:text-destructive cursor-pointer rounded-full transition-colors"
+                onClick={handleSignOut}
+              >
+                <CiLogout className="text-xl" />
+              </Button>
+            </form>
           </TooltipTrigger>
           <TooltipContent>
             <p>Log out</p>
@@ -95,39 +98,7 @@ const ProfilePage = async () => {
         )}
       </div>
 
-      {/* Articles Grid */}
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold">Your Recent Articles</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {user?.articles.map((art) => (
-            <div
-              key={art.id}
-              className="group bg-card overflow-hidden rounded-xl border transition-all hover:shadow-md"
-            >
-              <div className="relative aspect-video w-full overflow-hidden">
-                <OptimizedImage
-                  src={art.coverImage}
-                  alt={art.title}
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="space-y-2 p-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-primary text-[10px] font-bold tracking-wider uppercase">
-                    {art.category}
-                  </span>
-                  <span className="text-muted-foreground text-[10px]">
-                    {art.createdAt.toLocaleDateString()}
-                  </span>
-                </div>
-                <h3 className="line-clamp-2 cursor-pointer leading-tight font-bold group-hover:underline">
-                  {art.title}
-                </h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <div className="w-full">{articles && <ArticleTable articles={articles} />}</div>
     </div>
   );
 };

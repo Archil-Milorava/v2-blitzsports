@@ -15,7 +15,6 @@ export const getLandingNews = async () => {
     return news;
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
     }
   }
 };
@@ -33,7 +32,6 @@ export const getLandingHistories = async () => {
     return histories;
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
     }
   }
 };
