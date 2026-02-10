@@ -3,16 +3,16 @@ import { db } from '@/drizzle/db';
 import { article, user } from '@/drizzle/schema';
 import { auth } from '@/lib/auth';
 import { count, desc, eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { toast } from 'sonner';
 
 export const getCurrentUserData = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  if (!session) throw new Error('Not authorized');
+  if (!session) redirect('/login');
 
   try {
     const currentUser = await db.query.user.findFirst({
@@ -20,7 +20,7 @@ export const getCurrentUserData = async () => {
       with: {
         articles: {
           orderBy: [desc(article.createdAt)],
-          limit: 10,
+          limit: 1,
         },
       },
     });
@@ -34,7 +34,7 @@ export const getCurrentUserData = async () => {
 };
 
 export const getArticlesByUserId = async (page: number = 1) => {
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = 6;
   const offset = (page - 1) * PAGE_SIZE;
 
   const session = await auth.api.getSession({
@@ -69,19 +69,25 @@ export const getArticlesByUserId = async (page: number = 1) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching articles:', error);
-    return { data: [], metadata: { currentPage: 1, totalPages: 0 } };
+    return {
+      data: [],
+      metadata: {
+        currentPage: 1,
+        totalPages: 0,
+        hasNextPage: false,
+        hasPrevPage: false,
+      },
+    };
   }
 };
-
 export const handleSignOut = async () => {
   try {
     await auth.api.signOut({
       headers: await headers(),
     });
-    toast.success('Logged out');
-    redirect('/');
   } catch (error) {
-    redirect('/');
+    console.error(error);
   }
+  revalidatePath('layout');
+  redirect('/');
 };

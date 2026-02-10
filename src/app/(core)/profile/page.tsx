@@ -9,16 +9,11 @@ import {
 import { CalendarDays, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import { CiLogout } from 'react-icons/ci';
-import {
-  getArticlesByUserId,
-  getCurrentUserData,
-  handleSignOut,
-} from './actions';
+import { getCurrentUserData, handleSignOut } from './actions';
 import { ArticleTable } from './components/ArticleTable';
 
 const ProfilePage = async () => {
   const user = await getCurrentUserData();
-  const articles = await getArticlesByUserId();
 
   return (
     <div className="bg-background flex min-h-screen w-full flex-col gap-8 px-4 py-10 sm:px-10 md:px-14 lg:px-32 xl:px-48">
@@ -28,7 +23,7 @@ const ProfilePage = async () => {
           <Avatar className="border-primary/10 h-24 w-24 border-2">
             <OptimizedImage
               alt={user?.image || 'profile-image'}
-              src={user?.image || '/profile-image'}
+              src={user?.image || '/Profile-Image.png'}
               className="object-cover"
             />
           </Avatar>
@@ -66,7 +61,7 @@ const ProfilePage = async () => {
                 variant="outline"
                 size="icon"
                 className="hover:bg-destructive/10 hover:text-destructive cursor-pointer rounded-full transition-colors"
-                onClick={handleSignOut}
+                type="submit"
               >
                 <CiLogout className="text-xl" />
               </Button>
@@ -77,7 +72,6 @@ const ProfilePage = async () => {
           </TooltipContent>
         </Tooltip>
       </div>
-
       {/* Action Bar */}
       <div className="flex flex-wrap gap-3">
         {user?.canMakeArticle && (
@@ -97,8 +91,7 @@ const ProfilePage = async () => {
           </Button>
         )}
       </div>
-
-      <div className="w-full">{articles && <ArticleTable articles={articles} />}</div>
+      {(user?.articles?.length ?? 0) > 0 && <ArticleTable />}{' '}
     </div>
   );
 };
