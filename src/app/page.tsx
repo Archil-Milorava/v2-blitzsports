@@ -1,6 +1,8 @@
-export default async function Page() {
+
+const page = () => {
   return (
-    <main>
-    </main>
-  );
+    <div>page</div>
+  )
 }
+
+export default page

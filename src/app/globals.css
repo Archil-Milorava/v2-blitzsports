@@ -39,7 +39,7 @@
   --warning-foreground: oklch(21.03% 0.0059 80.75);
 
   /* Border Radius */
-  --radius: 0.75rem;
+  --radius: 0.4rem;
   --field-radius: 1rem;
 
   /* Font Family */
