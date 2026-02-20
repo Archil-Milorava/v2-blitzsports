@@ -10,7 +10,7 @@ const PrimaryNewsCard = ({ title }) => {
       />
       {/* Dark Overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-      <h1 className="absolute bottom-4 left-4 z-10 text-2xl font-bold text-white">
+      <h1 className="absolute bottom-4 z-10 line-clamp-2 px-2 text-2xl font-bold text-white">
         {title}
       </h1>
     </div>

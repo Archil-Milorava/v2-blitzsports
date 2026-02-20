@@ -9,7 +9,7 @@ const SecondaryNewsCard = () => {
           className="h-full w-full object-cover"
         />
       </div>
-      <div className="h-1/2 w-full p-1">UFC 325</div>
+      <div className="h-1/2 w-full p-2">2025 წლის სეზონი — დასასრული დაუჯერებლად დაძაბული ბრძოლისა</div>
     </div>
   );
 };
